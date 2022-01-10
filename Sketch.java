@@ -4,6 +4,7 @@ public class Sketch extends PApplet {
 
   float circleSpeed = 5;
   float[] circleY = new float[25];
+  float[] rectHeights = new float[25];
   float rectHeight = 5;
 
   int num = 25;
@@ -19,13 +20,14 @@ public class Sketch extends PApplet {
     for (int i = 0; i < circleY.length; i++) {
       circleY[i] = random(height);
     }
-
   }
 
   public void draw() {
     background(50);
-    for(int j = 0; j < 400; j+=5){
-      rect(j, 395, 5, 5);
+
+    //Drawing Rectangles
+    for(int j = 0; j < 16; j++){
+      rect(j * 25, 395, 25, rectHeights[j] * -2);
     }
 
     for (int i = 0; i < circleY.length; i++) {
@@ -36,6 +38,7 @@ public class Sketch extends PApplet {
 
       if (circleY[i] > height) {
         circleY[i] = 0;
+        rectHeights[i] += 1;
       }
     }
 
