@@ -7,7 +7,7 @@ public class Sketch extends PApplet {
   float[] rectHeights = new float[25];
   float rectHeight = 5;
 
-  int num = 25;
+  int num = 50;
   int[] x = new int[num];
   int[] y = new int[num];
   int indexPosition = 0;
@@ -49,7 +49,7 @@ public class Sketch extends PApplet {
     for (int i = 0; i < num; i++) {
       
       int pos = (indexPosition + i) % num;
-      float radius = (num-i) / 2;
+      float radius = i;
       ellipse(x[pos], y[pos], radius, radius);
     }
   }
