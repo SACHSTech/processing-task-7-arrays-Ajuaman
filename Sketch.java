@@ -1,36 +1,73 @@
 import processing.core.PApplet;
 
 public class Sketch extends PApplet {
-	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
+
+  float circleSpeed = 5;
+  float[] circleY = new float[25];
+  float[] rectHeights = new float[25];
+  float rectHeight = 5;
+
+  int num = 50;
+  int[] x = new int[num];
+  int[] y = new int[num];
+  int indexPosition = 0;
+
   public void settings() {
-	// put your size call here
     size(400, 400);
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
   public void setup() {
-    background(210, 255, 173);
+    for (int i = 0; i < circleY.length; i++) {
+      circleY[i] = random(height);
+    }
   }
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
   public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+    background(50);
 
-    stroke(255);
-    line(50, 125, 70, 50);  
+    //Drawing Rectangles
+    for(int j = 0; j < 16; j++){
+      rect(j * 25, 395, 25, rectHeights[j] * -2);
+    }
+
+    for (int i = 0; i < circleY.length; i++) {
+      float circleX = width * i / circleY.length;
+      ellipse(circleX, circleY[i], 5, rectHeight);
+
+      circleY[i]+= circleSpeed;
+
+      if (circleY[i] > height) {
+        circleY[i] = 0;
+        rectHeights[i] += 1;
+      }
+    }
+
+    noStroke();
+    x[indexPosition] = mouseX;
+    y[indexPosition] = mouseY;
+    indexPosition = (indexPosition + 1) % num;
+    for (int i = 0; i < num; i++) {
+      
+      int pos = (indexPosition + i) % num;
+      float radius = i;
+      ellipse(x[pos], y[pos], radius, radius);
+    }
   }
-  
-  // define other methods down here.
+
+  @Override
+  public void keyPressed() {
+      // TODO Auto-generated method stub
+      super.keyPressed();
+      if(keyCode == DOWN){
+        circleSpeed = 3;
+      }
+      else if(keyCode == UP){
+        circleSpeed = 7;
+      }
+  }
+
+  @Override
+    public void keyReleased() {
+        circleSpeed = 5;
+    }
 }
